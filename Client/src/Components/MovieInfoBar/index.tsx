@@ -1,7 +1,11 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core";
+import { calcTime, convertMoney } from "../../utils/helpers";
 
-import { calcTime, convertMoney } from "../../helper/helpers";
+import { createStyles, makeStyles, Theme, Icon } from "@material-ui/core";
+
+import Time from "@material-ui/icons/AccessTime";
+import Money from "@material-ui/icons/AttachMoney";
+import Offer from "@material-ui/icons/LocalOffer";
 
 const MovieInfoBar: React.FC<any> = ({ time, budget, revenue }) => {
   const classes = useStyles();
@@ -10,14 +14,23 @@ const MovieInfoBar: React.FC<any> = ({ time, budget, revenue }) => {
     <div className={classes.infoBar}>
       <div className={classes.infoBarContent}>
         <div className={classes.infoBarContentColumn}>
+          <Icon>
+            <Time />
+          </Icon>
           <span className={classes.infoBarInfo}>Running time: {calcTime(time)}</span>
         </div>
 
         <div className={classes.infoBarContentColumn}>
+          <Icon>
+            <Money />
+          </Icon>
           <span className={classes.infoBarInfo}>Budget: {convertMoney(budget)}</span>
         </div>
 
         <div className={classes.infoBarContentColumn}>
+          <Icon>
+            <Offer />
+          </Icon>
           <span className={classes.infoBarInfo}>Revenue: {convertMoney(revenue)}</span>
         </div>
       </div>
@@ -31,42 +44,37 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     infoBar: {
       width: "100%",
-      height: "105px",
+      height: "80px",
       background: "#1c1c1c",
       position: "relative",
-      padding: "25px 20px 0px 20px",
+
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+
       boxSizing: "border-box",
       fontFamily: "Abel, sans-serif",
-      fontSize: "22px",
+      fontSize: "20px",
     },
     infoBarContent: {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+
       maxWidth: "1280px",
       width: "100%",
+
       margin: "0 auto",
       color: "#fff",
     },
     infoBarContentColumn: {
-      float: "left",
-      width: "33.33%",
+      display: "flex",
+      alignItems: "center",
+
       boxSizing: "border-box",
-      padding: "10px 20px 0 0",
     },
     infoBarInfo: {
-      padding: "5px 0 0 10px",
-      float: "left",
+      padding: "0px 0px 0px 10px",
     },
   })
 );
-
-/* .rmdb-movieinfobar-content-col {
-
-.fa-time, .fa-revenue {
-  float: left;
-  margin-top: -4px;
-
-}
-
-.fa-budget {
-  float: left;
-  margin-top: -3px; */
-/* } */
