@@ -9,7 +9,6 @@ const Actor: React.FC<any> = ({ actor }) => {
 
   return (
     <Card className={classes.root}>
-
       <CardMedia
         className={classes.cover}
         image={
@@ -19,9 +18,9 @@ const Actor: React.FC<any> = ({ actor }) => {
         }
         title="Live from space album cover"
       />
-            <div className={classes.details}>
-        <CardContent className={classes.content}>
-          <Typography component="h5" variant="h5">
+      <div className={classes.details}>
+        <CardContent>
+          <Typography component="h6" variant="h6">
             {actor.name}
           </Typography>
 
@@ -39,29 +38,25 @@ export default Actor;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
       boxShadow: "none",
-      [theme.breakpoints.down("xs")]:{
+      [theme.breakpoints.down("xs")]: {
         display: "flex",
         flexDirection: "column",
-      }
-      
+      },
     },
     details: {
       display: "flex",
       flexDirection: "row",
-      [theme.breakpoints.down("xs")]:{
+      [theme.breakpoints.down("xs")]: {
         display: "flex",
         flexDirection: "column",
-
-      }
-    },
-    content: {
-      flex: "1 0 auto",
+      },
     },
     cover: {
-      width: "auto",
-      height: "300px"
+      width: "200px",
+      height: "200px",
+      display: "flex",
+      flexDirection: "column",
     },
   })
 );
