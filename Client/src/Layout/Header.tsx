@@ -8,7 +8,7 @@ const Header = () => {
   const classes = useStyles();
 
   return (
-    <>
+    <div className={classes.root}>
       <AppBar position="fixed" className={classes.root}>
         <Toolbar>
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
@@ -25,7 +25,7 @@ const Header = () => {
           </Typography>
         </Toolbar>
       </AppBar>
-    </>
+    </div>
   );
 };
 
@@ -35,6 +35,8 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       flexGrow: 1,
+      height: "64px",
+      position: "relative",
     },
     menuButton: {
       marginRight: theme.spacing(2),
