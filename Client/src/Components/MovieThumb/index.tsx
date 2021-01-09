@@ -2,7 +2,7 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import { makeStyles, createStyles, Theme } from "@material-ui/core";
+import { makeStyles, createStyles, Theme, Card, CardActionArea, CardMedia } from "@material-ui/core";
 
 const MovieThumb: React.FC<any> = ({ movieId, clickable, movieName, image }) => {
   const classes = useStyles();
@@ -16,10 +16,18 @@ const MovieThumb: React.FC<any> = ({ movieId, clickable, movieName, image }) => 
             //movieName: `${movieName}`,
           }}
         >
-          <img src={image} alt="moviethumb" className={classes.root} />
+          <Card className={classes.root}>
+            <CardActionArea>
+              <CardMedia className={classes.media} image={image} title="Contemplative Reptile" />
+            </CardActionArea>
+          </Card>
         </Link>
       ) : (
-        <img src={image} alt="moviethumb" className={classes.root} />
+        <Card className={classes.root}>
+          <CardActionArea>
+            <CardMedia className={classes.media} image={image} title="Contemplative Reptile" />
+          </CardActionArea>
+        </Card>
       )}
     </div>
   );
@@ -32,10 +40,6 @@ export default MovieThumb;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      width: "500px",
-      height: "auto",
-      maxWidth: "100%",
-      maxHeight: "100%",
       transition: "all 0.3s",
       boxSizing: "border-box",
     },
@@ -44,6 +48,9 @@ const useStyles = makeStyles((theme: Theme) =>
       "&:hover": {
         opacity: 0.8,
       },
+    },
+    media: {
+      height: 520,
     },
   })
 );

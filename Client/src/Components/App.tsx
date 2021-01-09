@@ -5,8 +5,8 @@ import theme from "../Layout/theme";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import Home from "../Pages/Home/index";
-import Movie from "../Pages/Movie/";
+import Home from "../Pages/Home";
+import Movie from "../Pages/Movie";
 import NotFound from "../Pages/NotFound";
 
 const Routes = () => {

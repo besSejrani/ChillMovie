@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./Home.css";
-import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../config";
+import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../config";
 
-import HeroImage from "../../Components/HeroImage/index";
-import SearchBar from "../../Components/SearchBar/index";
-import FourColGrid from "../../Components/FourColGrid/index";
-import MovieThumb from "../../Components/MovieThumb/index";
-import LoadMoreBtn from "../../Components/LoadMore/index";
-import Spinner from "../../Components/Spinner/index";
+import HeroImage from "../Components/HeroImage/index";
+import SearchBar from "../Components/SearchBar/index";
+import FourColGrid from "../Components/FourColGrid/index";
+import MovieThumb from "../Components/MovieThumb/index";
+import LoadMoreBtn from "../Components/LoadMore/index";
+import Spinner from "../Components/Spinner/index";
 
 class Home extends Component {
   state = {

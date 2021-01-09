@@ -19,6 +19,8 @@ const LoadMore: React.FC<any> = ({ text, onClick }) => {
 
 export default LoadMore;
 
+// ========================================================================================================
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {

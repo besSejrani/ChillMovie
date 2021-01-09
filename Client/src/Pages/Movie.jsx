@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import "./Movie.css";
 
-import { API_KEY, API_URL } from "../../config";
-import Navigation from "../../Components/Navigation";
-import MovieInfo from "../../Components/MovieInfo";
-import MovieInfoBar from "../../Components/MovieInfoBar";
-import FourColGrid from "../../Components/FourColGrid";
-import Actor from "../../Components/Actor";
-import Spinner from "../../Components/Spinner";
+import { API_KEY, API_URL } from "../config";
+import Navigation from "../Components/Navigation";
+import MovieInfo from "../Components/MovieInfo";
+import MovieInfoBar from "../Components/MovieInfoBar";
+import FourColGrid from "../Components/FourColGrid";
+import Actor from "../Components/Actor";
+import Spinner from "../Components/Spinner";
 
 class Movie extends Component {
   state = {
