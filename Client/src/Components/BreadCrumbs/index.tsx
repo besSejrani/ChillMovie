@@ -9,7 +9,7 @@ const Navigation = ({ movie }) => {
 
   return (
     <div className={classes.navigation}>
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs component={Link} to="/" aria-label="breadcrumb">
         <Linko color="inherit" href="/">
           Home
         </Linko>
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
       top: "8%",
       color: "#fff",
       background: "white",
-      textDecoration: "none"
+      textDecoration: "none",
     },
   })
 );

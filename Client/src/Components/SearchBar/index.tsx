@@ -27,14 +27,18 @@ const SearchBar = ({ callback }) => {
     //   <div className={classes.searchBarContent}>
     //     </div>
     //   </div>
-<Container>
+    <Container>
       <form className={classes.root} noValidate autoComplete="off">
-
-        <TextField id="outlined-basic" label="Search Movie" variant="outlined"  onChange={(event) => doSearch(event.target.value)}
-          value={value} />
+        <TextField
+          id="outlined-basic"
+          label="Search Movie"
+          variant="outlined"
+          fullWidth
+          onChange={(event) => doSearch(event.target.value)}
+          value={value}
+        />
       </form>
-</Container>
-
+    </Container>
   );
 };
 
@@ -44,8 +48,10 @@ export default SearchBar;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-root:{
-  display: "flex"
-}
+    root: {
+      display: "flex",
+      width: "100%",
+      margin: "50px 0px",
+    },
   })
 );

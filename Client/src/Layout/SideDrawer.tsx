@@ -1,68 +1,108 @@
 import React from "react";
-import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-import { Drawer, Button, List, Divider, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import {
+  Drawer,
+  List,
+  Divider,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListSubheader,
+  ListItemSecondaryAction,
+  Switch,
+} from "@material-ui/core";
 
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import { Link } from "react-router-dom";
 
-type Anchor = "top" | "left" | "bottom" | "right";
+import LightMode from "@material-ui/icons/Brightness4";
+import DarkMode from "@material-ui/icons/BrightnessHigh";
+import HomeIcon from "@material-ui/icons/Home";
+import GithubIcon from "@material-ui/icons/GitHub";
+import WebIcon from "@material-ui/icons/Public";
+//import InstallIcon from "@material-ui/icons/GetApp";
 
-const SideDrawer = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSideDrawer, toggleTheme } from "../redux/ui/uiAction";
+import { IAppState } from "../redux/rootReducer";
+
+type Anchor = "left";
+
+const SideDrawer: React.FC<any> = () => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  const dispatch = useDispatch();
 
-  const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-    if (
-      event.type === "keydown" &&
-      ((event as React.KeyboardEvent).key === "Tab" || (event as React.KeyboardEvent).key === "Shift")
-    ) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
+  const isDarkTheme = useSelector((state: IAppState) => state.ui.isDarkTheme);
+  const isSideDrawerOpen = useSelector((state: IAppState) => state.ui.isSideDrawerOpen);
 
   const list = (anchor: Anchor) => (
-    <div
-      className={clsx(classes.list, {
-        [classes.fullList]: anchor === "top" || anchor === "bottom",
-      })}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+    <div className={classes.list}>
+      {
+        <List>
+          <ListItem button component={Link} to="/">
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
           </ListItem>
-        ))}
-      </List>
+
+          <ListItem button component={"a"} href="https://github.com/besSejrani">
+            <ListItemIcon>
+              <GithubIcon />
+            </ListItemIcon>
+            <ListItemText primary="Github" />
+          </ListItem>
+
+          <ListItem button component={"a"} href="https://www.imdb.com/">
+            <ListItemIcon>
+              <WebIcon />
+            </ListItemIcon>
+            <ListItemText primary="Imdb" />
+          </ListItem>
+        </List>
+      }
+
       <Divider />
-      <List>
-        {["All mail", "Trash", "Spam"].map((text, index) => (
-          <ListItem button key={text}>
-            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-            <ListItemText primary={text} />
+
+      <List subheader={<ListSubheader>Settings</ListSubheader>}>
+        <ListItem>
+          <ListItemIcon>{isDarkTheme ? <DarkMode /> : <LightMode />}</ListItemIcon>
+          <ListItemText id="switch-list-label-bluetooth" primary="Dark Mode" />
+          <ListItemSecondaryAction>
+            <Switch
+              checked={isDarkTheme}
+              onChange={() => dispatch(toggleTheme())}
+              edge="end"
+              inputProps={{ "aria-labelledby": "switch-list-label-bluetooth" }}
+            />
+          </ListItemSecondaryAction>
+        </ListItem>
+
+        {/*         {installable && (
+          <ListItem>
+            <ListItemIcon>
+              <InstallIcon />
+            </ListItemIcon>
+            <ListItemText id="switch-list-label-bluetooth" primary="Install PWA" />
+            <ListItemSecondaryAction>
+              <Switch
+                onChange={handleInstallClick}
+                edge="end"
+                inputProps={{ "aria-labelledby": "switch-list-label-bluetooth" }}
+              />
+            </ListItemSecondaryAction>
           </ListItem>
-        ))}
+        )} */}
       </List>
+
+      <Divider />
     </div>
   );
 
   return (
     <div>
-      {(["left", "right", "top", "bottom"] as Anchor[]).map((anchor) => (
+      {(["left"] as Anchor[]).map((anchor) => (
         <React.Fragment key={anchor}>
-          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
-          <Drawer anchor={anchor} open={state[anchor]} onClose={toggleDrawer(anchor, false)}>
+          <Drawer anchor={anchor} open={isSideDrawerOpen} onClose={() => dispatch(toggleSideDrawer())}>
             {list(anchor)}
           </Drawer>
         </React.Fragment>
@@ -76,8 +116,5 @@ export default SideDrawer;
 const useStyles = makeStyles({
   list: {
     width: 250,
-  },
-  fullList: {
-    width: "auto",
   },
 });

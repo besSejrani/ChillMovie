@@ -4,14 +4,24 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import { Link } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import { toggleSideDrawer } from "../redux/ui/uiAction";
+
 const Header = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" className={classes.root}>
+      <AppBar position="fixed">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={() => dispatch(toggleSideDrawer())}
+          >
             <MenuIcon />
           </IconButton>
           <Typography

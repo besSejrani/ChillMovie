@@ -4,7 +4,7 @@ import { IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../config";
 import MovieThumb from "../MovieThumb/index";
 
 import { Typography, Theme, createStyles, makeStyles } from "@material-ui/core";
-import {Rating} from "@material-ui/lab"
+import { Rating } from "@material-ui/lab";
 
 const MovieInfo = ({ movie, directors }) => {
   const classes = useStyles();
@@ -42,8 +42,15 @@ const MovieInfo = ({ movie, directors }) => {
           </Typography>
 
           <div className={classes.rating}>
-          <Rating name="read-only" defaultValue={movie.vote_average} precision={0.1} max={10} readOnly style={{marginRight: "20px"}} />
-            <p style={{marginTop: "2px"}}>{movie.vote_average} / 10</p>
+            <Rating
+              name="read-only"
+              defaultValue={movie.vote_average}
+              precision={0.1}
+              max={10}
+              readOnly
+              style={{ marginRight: "20px" }}
+            />
+            <p style={{ marginTop: "2px" }}>{movie.vote_average} / 10</p>
           </div>
 
           {directors.length > 1 ? (
