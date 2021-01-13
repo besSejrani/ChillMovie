@@ -4,6 +4,7 @@ import { IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../config";
 import MovieThumb from "../MovieThumb/index";
 
 import { Typography, Theme, createStyles, makeStyles } from "@material-ui/core";
+import {Rating} from "@material-ui/lab"
 
 const MovieInfo = ({ movie, directors }) => {
   const classes = useStyles();
@@ -41,16 +42,8 @@ const MovieInfo = ({ movie, directors }) => {
           </Typography>
 
           <div className={classes.rating}>
-            <meter
-              className={classes.meter}
-              min="0"
-              max="100"
-              optimum={100}
-              low={40}
-              high={70}
-              value={movie.vote_average * 10}
-            />
-            <p className={classes.score}>{movie.vote_average}</p>
+          <Rating name="read-only" defaultValue={movie.vote_average} precision={0.1} max={10} readOnly style={{marginRight: "20px"}} />
+            <p style={{marginTop: "2px"}}>{movie.vote_average} / 10</p>
           </div>
 
           {directors.length > 1 ? (
@@ -132,17 +125,9 @@ const useStyles = makeStyles((theme: Theme) =>
       lineHeight: "26px",
     },
     rating: {
-      width: "250px",
-      height: "20px",
-      marginTop: "20px",
-      position: "relative",
+      display: "flex",
     },
-    score: {
-      position: "absolute",
-      margin: "0px",
-      right: "0px",
-      top: "-3px",
-    },
+
     meter: {
       background: "linear-gradient(to bottom, #16d47b)",
       "&::-webkit-meter-bar": {

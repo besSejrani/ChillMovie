@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     cover: {
-      width: "200px",
+      // width: "200px",
       height: "200px",
       display: "flex",
       flexDirection: "column",

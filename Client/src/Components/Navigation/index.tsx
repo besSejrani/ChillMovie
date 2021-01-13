@@ -25,32 +25,12 @@ export default Navigation;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     navigation: {
-      width: "100%",
-      height: "50px",
-      background: "#353535",
+      position: "absolute",
+      left: "16.5%",
+      top: "8%",
       color: "#fff",
-      position: "relative",
-      padding: "20px",
-      boxSizing: "border-box",
-      margin: "0",
-      paddingTop: "10px",
+      background: "white",
+      textDecoration: "none"
     },
   })
 );
-
-/* .rmdb-navigation-content {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 20px;
-
-}
-
-.rmdb-navigation-content p {
-  font-family: 'Abel', sans-serif;
-  font-size: 22px;
-  float: left;
-  color: #fff;
-  padding-right: 10px;
-  text-decoration: none;
-  margin: 0;
-} */
