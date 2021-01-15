@@ -1,5 +1,5 @@
 import React from "react";
-import { makeStyles, createStyles, Theme, Typography } from "@material-ui/core";
+import { makeStyles, createStyles, Theme, Typography, Container } from "@material-ui/core";
 
 const HeroImage = ({ image, text, title }) => {
   const classes = useStyles();
@@ -13,9 +13,10 @@ const HeroImage = ({ image, text, title }) => {
       41%, rgba(0,0,0,0.65)
       100%),
       url('${image}'), #1c1c1c`,
+        backgroundAttachment: "fixed",
       }}
     >
-      <div className={classes.heroContent}>
+      <Container>
         <div className={classes.heroImageText}>
           <Typography variant="h1" className={classes.h1}>
             {title}
@@ -25,7 +26,7 @@ const HeroImage = ({ image, text, title }) => {
             {text}
           </Typography>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };
@@ -40,15 +41,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundSize: "100%, cover !important",
       backgroundPosition: "center, center !important",
       width: "100%",
-      height: "600px",
+      height: "43vh",
       position: "relative",
       animation: "animateHeroimage 1s",
       paddingTop: "500px",
-    },
-    heroContent: {
-      maxWidth: "1280px",
-      padding: "20px",
-      margin: "0 auto",
     },
     heroImageText: {
       zIndex: 100,

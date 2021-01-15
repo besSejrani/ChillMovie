@@ -1,8 +1,8 @@
 import React from "react";
-import { calcTime, convertMoney } from "../../utils/helpers";
 
 import { createStyles, makeStyles, Theme, Icon } from "@material-ui/core";
 
+import { calcTime, convertMoney } from "../../utils/helpers";
 import Time from "@material-ui/icons/AccessTime";
 import Money from "@material-ui/icons/AttachMoney";
 import Offer from "@material-ui/icons/LocalOffer";

@@ -7,6 +7,7 @@ import { Breadcrumbs, Link as Linko, Typography, createStyles, makeStyles, Theme
 const Navigation = ({ movie }) => {
   const classes = useStyles();
 
+  console.log(movie);
   return (
     <div className={classes.navigation}>
       <Breadcrumbs component={Link} to="/" aria-label="breadcrumb">

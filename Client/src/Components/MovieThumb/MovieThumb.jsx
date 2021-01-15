@@ -2,30 +2,32 @@ import React from "react";
 
 import { Link } from "react-router-dom";
 
-import { makeStyles, createStyles, Theme, Card, CardActionArea, CardMedia } from "@material-ui/core";
+import { makeStyles, createStyles, Card, CardActionArea, CardMedia, CardContent, Container } from "@material-ui/core";
 
-const MovieThumb: React.FC<any> = ({ movieId, clickable, movieName, image }) => {
+const MovieThumb = ({ movieId, clickable, movieName, image }) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.clickable}>
+    <div className={classes.root}>
       {clickable ? (
         <Link
           to={{
             pathname: `/${movieId}`,
-            //movieName: `${movieName}`,
+            movie: `${movieName}`,
           }}
         >
-          <Card className={classes.root}>
+          <Card elevation={3}>
             <CardActionArea>
               <CardMedia className={classes.media} image={image} title="Contemplative Reptile" />
+              <CardContent>{movieName}</CardContent>
             </CardActionArea>
           </Card>
         </Link>
       ) : (
-        <Card className={classes.root}>
+        <Card elevation={3}>
           <CardActionArea>
             <CardMedia className={classes.media} image={image} title="Contemplative Reptile" />
+            <CardContent>{movieName}</CardContent>
           </CardActionArea>
         </Card>
       )}
@@ -37,17 +39,11 @@ export default MovieThumb;
 
 // ========================================================================================================
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      transition: "all 0.3s",
-      boxSizing: "border-box",
-    },
-    clickable: {
-      cursor: "pointer",
-      "&:hover": {
-        opacity: 0.8,
-      },
+      width: 300,
+      margin: 4,
     },
     media: {
       height: 520,

@@ -1,125 +1,145 @@
-import React, { Component } from "react";
-import "./Home.css";
+import React, { useState, useEffect } from "react";
 import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../config";
 
-import HeroImage from "../Components/HeroImage/index";
+import HeroImage from "../Components/HeroImage/HeroImage";
 import SearchBar from "../Components/SearchBar/index";
-import FourColGrid from "../Components/FourColGrid/index";
-import MovieThumb from "../Components/MovieThumb/index";
-import LoadMoreBtn from "../Components/LoadMore/index";
+import MovieThumb from "../Components/MovieThumb/MovieThumb";
+import LoadMoreBtn from "../Components/LoadMore/LoadMore";
 import Spinner from "../Components/Spinner/index";
 
-class Home extends Component {
-  state = {
-    movies: [],
-    heroImage: null,
-    loading: false,
-    currentPage: 0,
-    totalPages: 0,
-    searchTerm: "",
-  };
+import axios from "axios";
 
-  componentDidMount() {
+import { createStyles, makeStyles, Theme, Container, Typography } from "@material-ui/core";
+
+const initialState = {
+  movies: [],
+  heroImage: null,
+  loading: false,
+  currentPage: 0,
+  totalPages: 0,
+  searchTerm: "",
+};
+
+const Home = () => {
+  const classes = useStyles();
+  const [myState, setMyState] = useState(initialState);
+
+  useEffect(() => {
     if (localStorage.getItem("HomeState")) {
       const state = JSON.parse(localStorage.getItem("HomeState"));
-      this.setState({ ...state });
+      setMyState((prevState) => ({ ...prevState }));
     } else {
-      this.setState({ loading: true });
-      const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-      this.fetchItems(endpoint);
-    }
-  }
+      setMyState((prevState) => ({ ...prevState, loading: true }));
 
-  searchItems = (searchTerm) => {
-    console.log(searchTerm);
+      const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
+      fetchItems(endpoint);
+    }
+  }, []);
+
+  const searchItems = (searchTerm) => {
     let endpoint = "";
-    this.setState({
-      movies: [],
-      loading: true,
-      searchTerm,
-    });
+    setMyState((prevState) => ({ ...prevState, movie: [], loading: true, searchTerm }));
 
     if (searchTerm === "") {
       endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     } else {
       endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchTerm}`;
     }
-    this.fetchItems(endpoint);
+    fetchItems(endpoint);
   };
 
-  loadMoreItems = () => {
+  const loadMoreItems = () => {
     let endpoint = "";
-    this.setState({ loading: true });
+    setMyState((prevState) => ({ ...prevState, loading: true }));
 
-    if (this.state.searchTerm === "") {
-      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${this.state.currentPage + 1}`;
+    if (myState.searchTerm === "") {
+      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${myState.currentPage + 1}`;
     } else {
-      endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${this.state.searchTerm}&page=${
-        this.state.currentPage + 1
+      endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${myState.searchTerm}&page=${
+        myState.currentPage + 1
       }`;
     }
-    this.fetchItems(endpoint);
+    fetchItems(endpoint);
   };
 
-  fetchItems = (endpoint) => {
-    fetch(endpoint)
-      .then((result) => result.json())
-      .then((result) => {
-        this.setState(
-          {
-            movies: [...this.state.movies, ...result.results],
-            heroImage: this.state.heroImage || result.results[0],
+  const fetchItems = async (endpoint) => {
+    try {
+      const { data } = await axios.get(endpoint);
+
+      setMyState(
+        (prevState) => ({
+          ...prevState,
+          ...{
+            movies: [...data.results],
+            heroImage: prevState.heroImage || data.results[0],
             loading: false,
-            currentPage: result.page,
-            totalPages: result.total_pages,
+            currentPage: data.page,
+            totalPages: data.total_pages,
           },
-          () => {
-            localStorage.setItem("HomeState", JSON.stringify(this.state));
-          }
-        );
-      })
-      .catch((error) => console.error(("Error:", error)));
+        }),
+
+        () => {
+          localStorage.setItem("HomeState", JSON.stringify(this.state));
+        }
+      );
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
 
-  render() {
-    return (
-      <div className="rmdb-home">
-        {this.state.heroImage ? (
-          <div>
-            <HeroImage
-              image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${this.state.heroImage.backdrop_path} `}
-              title={this.state.heroImage.original_title}
-              text={this.state.heroImage.overview}
+  return (
+    <>
+      {myState.heroImage ? (
+        <>
+          <HeroImage
+            image={`${IMAGE_BASE_URL}${BACKDROP_SIZE}${myState.heroImage.backdrop_path} `}
+            title={myState.heroImage.original_title}
+            text={myState.heroImage.overview}
+          />
+          <SearchBar callback={searchItems} />
+        </>
+      ) : null}
+      <Container>
+        <Typography variant="h2" className={classes.title}>
+          Popular Movies
+        </Typography>
+      </Container>
+      <Container className={classes.root}>
+        {myState.movies.map((element, i) => {
+          return (
+            <MovieThumb
+              key={i}
+              clickable={true}
+              image={
+                element.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}` : "./images/no_images.jpg"
+              }
+              movieId={element.id}
+              movieName={element.title}
             />
-            <SearchBar callback={this.searchItems} />
-          </div>
+          );
+        })}
+
+        {myState.loading ? <Spinner /> : null}
+        {myState.currentPage <= myState.totalPages && !myState.loading ? (
+          <LoadMoreBtn text="Load More" onClick={loadMoreItems} />
         ) : null}
-        <div className="rmdb-home-grid">
-          <FourColGrid header={this.state.searchTerm ? "Search Result" : "Popular Movies"} loading={this.state.loading}>
-            {this.state.movies.map((element, i) => {
-              return (
-                <MovieThumb
-                  key={i}
-                  clickable={true}
-                  image={
-                    element.poster_path
-                      ? `${IMAGE_BASE_URL}${POSTER_SIZE}${element.poster_path}`
-                      : "./images/no_images.jpg"
-                  }
-                  movieId={element.id}
-                  movieName={element.original_title}
-                />
-              );
-            })}
-          </FourColGrid>
-          {this.state.loading ? <Spinner /> : null}
-          {this.state.currentPage <= this.state.totalPages && !this.state.loading ? (
-            <LoadMoreBtn text="Load More" onClick={this.loadMoreItems} />
-          ) : null}
-        </div>
-      </div>
-    );
-  }
-}
+      </Container>
+    </>
+  );
+};
 
 export default Home;
+
+// ========================================================================================================
+
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      display: "flex",
+      flexWrap: "wrap",
+    },
+    title: {
+      marginBottom: 30,
+    },
+  })
+);

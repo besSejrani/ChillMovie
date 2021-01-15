@@ -1,7 +1,7 @@
 import React from "react";
 
 import { IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../config";
-import MovieThumb from "../MovieThumb/index";
+import MovieThumb from "../MovieThumb/MovieThumb";
 
 import { Typography, Theme, createStyles, makeStyles } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
@@ -19,6 +19,8 @@ const MovieInfo = ({ movie, directors }) => {
       <div className={classes.movieInfoContent}>
         <div className={classes.movieInfoThumb}>
           <MovieThumb
+            movieId={movie.id}
+            movieName={movie.title}
             image={movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : "./images/no-image.jpg"}
             clickable={false}
           />

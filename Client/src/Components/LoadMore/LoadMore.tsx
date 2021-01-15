@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       color: "#fff",
       cursor: "pointer",
       transition: "all 0.3s",
+      margin: "50px 0px",
     },
   })
 );
