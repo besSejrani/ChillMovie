@@ -1,6 +1,17 @@
 import React from "react";
-import { AppBar, Toolbar, Typography, IconButton, makeStyles, createStyles, Theme } from "@material-ui/core";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  IconButton,
+  makeStyles,
+  createStyles,
+  Theme,
+  Badge,
+  Container,
+} from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
 
 import { Link } from "react-router-dom";
 
@@ -14,26 +25,34 @@ const Header = () => {
   return (
     <div className={classes.root}>
       <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-            onClick={() => dispatch(toggleSideDrawer())}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            className={classes.title}
-            component={Link}
-            to="/"
-            style={{ color: "white", textDecoration: "none" }}
-          >
-            Chill Movie
-          </Typography>
-        </Toolbar>
+        <Container>
+          <Toolbar className={classes.toolbar}>
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="menu"
+              onClick={() => dispatch(toggleSideDrawer())}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              className={classes.title}
+              component={Link}
+              to="/"
+              style={{ color: "white", textDecoration: "none" }}
+            >
+              Chill Movie
+            </Typography>
+
+            <IconButton aria-label="show 17 new notifications" color="inherit">
+              <Badge badgeContent={17} style={{ color: "red", zIndex: 5 }}>
+                <VideoLibraryIcon style={{ color: "white", zIndex: 10 }} />
+              </Badge>
+            </IconButton>
+          </Toolbar>
+        </Container>
       </AppBar>
     </div>
   );
@@ -53,6 +72,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     title: {
       flexGrow: 1,
+    },
+    toolbar: {
+      padding: 0,
     },
   })
 );

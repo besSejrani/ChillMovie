@@ -79,7 +79,7 @@ const Home = () => {
         }),
 
         () => {
-          localStorage.setItem("HomeState", JSON.stringify(this.state));
+          localStorage.setItem("HomeState", JSON.stringify(myState));
         }
       );
     } catch (error) {

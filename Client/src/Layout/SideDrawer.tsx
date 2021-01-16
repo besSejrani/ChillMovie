@@ -10,6 +10,10 @@ import {
   ListSubheader,
   ListItemSecondaryAction,
   Switch,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
@@ -20,6 +24,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import GithubIcon from "@material-ui/icons/GitHub";
 import WebIcon from "@material-ui/icons/Public";
 //import InstallIcon from "@material-ui/icons/GetApp";
+import TranslateIcon from "@material-ui/icons/Translate";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSideDrawer, toggleTheme } from "../redux/ui/uiAction";
@@ -92,6 +97,20 @@ const SideDrawer: React.FC<any> = () => {
             </ListItemSecondaryAction>
           </ListItem>
         )} */}
+
+        <ListItem>
+          <ListItemIcon>{<TranslateIcon />}</ListItemIcon>
+          <FormControl className={classes.formControl}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select" /* value={age} onChange={handleChange} */
+            >
+              <MenuItem value={10}>Ten</MenuItem>
+              <MenuItem value={20}>Twenty</MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+            </Select>
+          </FormControl>
+        </ListItem>
       </List>
 
       <Divider />
@@ -113,8 +132,12 @@ const SideDrawer: React.FC<any> = () => {
 
 export default SideDrawer;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   list: {
     width: 250,
   },
-});
+  formControl: {
+    margin: theme.spacing(1),
+    minWidth: 150,
+  },
+}));

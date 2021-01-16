@@ -39,7 +39,8 @@ export default Actor;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: "15px",
+      marginRight: "32px",
+      marginBottom: "32px",
     },
     cover: {
       width: "auto",

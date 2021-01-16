@@ -7,7 +7,7 @@ import MovieInfoBar from "../Components/MovieInfoBar/MovieInfoBar";
 import Actor from "../Components/Actor/Actor";
 import Spinner from "../Components/Spinner";
 
-import { Container, createStyles, makeStyles, theme } from "@material-ui/core";
+import { Container, createStyles, makeStyles, Theme, Typography } from "@material-ui/core";
 
 import { useParams, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -60,6 +60,12 @@ const Movie = () => {
         </div>
       ) : null}
 
+      <Container>
+        <Typography variant="h2" className={classes.actors}>
+          Actors
+        </Typography>
+      </Container>
+
       {actors ? (
         <Container className={classes.root}>
           {actors.map((element, i) => {
@@ -83,6 +89,10 @@ const useStyles = makeStyles(() =>
     root: {
       display: "flex",
       flexWrap: "wrap",
+    },
+
+    actors: {
+      margin: "30px 0px",
     },
   })
 );
