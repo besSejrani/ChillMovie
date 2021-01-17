@@ -3,14 +3,14 @@ import React from "react";
 import { IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../config";
 import MovieThumb from "../MovieThumb/MovieThumb";
 
-import { Typography, Theme, createStyles, makeStyles } from "@material-ui/core";
+import { Typography, Theme, createStyles, makeStyles, Container } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 
 const MovieInfo = ({ movie, directors }) => {
   const classes = useStyles();
 
   return (
-    <div
+    <Container
       className={classes.movieInfo}
       style={{
         background: movie.backdrop_path ? `url('${IMAGE_BASE_URL}${BACKDROP_SIZE}/${movie.backdrop_path}')` : "#000",
@@ -74,7 +74,7 @@ const MovieInfo = ({ movie, directors }) => {
           })}
         </div>
       </div>
-    </div>
+    </Container>
   );
 };
 

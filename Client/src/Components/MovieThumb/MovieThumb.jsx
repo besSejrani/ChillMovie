@@ -18,6 +18,7 @@ import useShareContent from "../../hooks/useShareContent";
 
 const MovieThumb = ({ movieId, clickable, movieName, image }) => {
   const classes = useStyles();
+  const { share } = useShareContent("hello", "https://chillmovie.netlify.app", "this is a test");
 
   return (
     <div className={classes.root}>
@@ -37,7 +38,7 @@ const MovieThumb = ({ movieId, clickable, movieName, image }) => {
             <Typography variant="h5">{movieName}</Typography>
           </CardContent>
           <CardActions className={classes.actions}>
-            <Button size="small" color="primary" onClick={useShareContent}>
+            <Button size="small" color="primary" onClick={share}>
               Share
             </Button>
             <Button size="small" color="primary">
