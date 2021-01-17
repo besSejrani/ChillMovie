@@ -14,3 +14,21 @@ export const convertMoney = (money) => {
   });
   return formatter.format(money);
 };
+
+/*
+  const loadMoreItems = () => {
+    let endpoint = "";
+    setMyState((prevState) => ({ ...prevState, loading: true }));
+
+    if (myState.searchTerm === "") {
+      console.log(3);
+      setMyState((prevState) => ({ ...prevState, currentPage: prevState.currentPage + 1 }));
+
+      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${myState.currentPage}`;
+    } else {
+      setMyState((prevState) => ({ ...prevState, currentPage: prevState.currentPage + 1 }));
+      console.log(4);
+      endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${myState.searchTerm}&page=${myState.currentPage}`;
+    }
+    fetchItems(endpoint);
+  }; */

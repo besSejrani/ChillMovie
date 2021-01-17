@@ -4,84 +4,105 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "..
 import HeroImage from "../Components/HeroImage/HeroImage";
 import SearchBar from "../Components/SearchBar/index";
 import MovieThumb from "../Components/MovieThumb/MovieThumb";
-import LoadMoreBtn from "../Components/LoadMore/LoadMore";
 import Spinner from "../Components/Spinner/index";
 
 import axios from "axios";
+import useOnScreen from "../hooks/useOnScreen";
 
-import { createStyles, makeStyles, Theme, Container, Typography } from "@material-ui/core";
+import { createStyles, makeStyles, Container, Typography, IconButton, Menu, MenuItem } from "@material-ui/core";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 const initialState = {
   movies: [],
   heroImage: null,
   loading: false,
-  currentPage: 0,
   totalPages: 0,
   searchTerm: "",
 };
 
 const Home = () => {
   const classes = useStyles();
+
   const [myState, setMyState] = useState(initialState);
+  const [count, setCount] = useState(1);
+
+  const [ref, visible] = useOnScreen({ threshold: 1 });
+
+  const options = [
+    "Action",
+    "Adventure",
+    "Animation",
+    "Biography",
+    "Comedy",
+    "Crime",
+    "Documentary",
+    "Drama",
+    "Family",
+    "Fantasy",
+    "Histoy",
+    "Horror",
+    "Musical",
+    "Mystery",
+    "Romance",
+    "Science Fiction",
+    "Sport",
+    "Superhero",
+    "Thriller",
+    "War",
+    "Western",
+  ];
+
+  const ITEM_HEIGHT = 48;
 
   useEffect(() => {
-    if (localStorage.getItem("HomeState")) {
-      const state = JSON.parse(localStorage.getItem("HomeState"));
-      setMyState((prevState) => ({ ...prevState }));
-    } else {
-      setMyState((prevState) => ({ ...prevState, loading: true }));
+    load();
+  }, [visible]);
 
-      const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
-      fetchItems(endpoint);
-    }
-  }, []);
+  const load = () => {
+    const endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${count}`;
+    fetchItems(endpoint);
+  };
 
   const searchItems = (searchTerm) => {
     let endpoint = "";
     setMyState((prevState) => ({ ...prevState, movie: [], loading: true, searchTerm }));
 
     if (searchTerm === "") {
+      console.log(1);
       endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=1`;
     } else {
+      console.log(2);
       endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${searchTerm}`;
     }
     fetchItems(endpoint);
   };
 
-  const loadMoreItems = () => {
-    let endpoint = "";
-    setMyState((prevState) => ({ ...prevState, loading: true }));
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
 
-    if (myState.searchTerm === "") {
-      endpoint = `${API_URL}movie/popular?api_key=${API_KEY}&language=en-US&page=${myState.currentPage + 1}`;
-    } else {
-      endpoint = `${API_URL}search/movie?api_key=${API_KEY}&language=en-US&query=${myState.searchTerm}&page=${
-        myState.currentPage + 1
-      }`;
-    }
-    fetchItems(endpoint);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const fetchItems = async (endpoint) => {
     try {
       const { data } = await axios.get(endpoint);
 
-      setMyState(
-        (prevState) => ({
-          ...prevState,
-          ...{
-            movies: [...data.results],
-            heroImage: prevState.heroImage || data.results[0],
-            loading: false,
-            currentPage: data.page,
-            totalPages: data.total_pages,
-          },
-        }),
+      setMyState((prevState) => ({
+        ...prevState,
+        ...{ movies: [...prevState.movies, ...data.results] },
+        ...{
+          heroImage: prevState.heroImage || data.results[0],
+          loading: false,
+          totalPages: data.total_pages,
+        },
+      }));
 
-        () => {
-          localStorage.setItem("HomeState", JSON.stringify(myState));
-        }
-      );
+      setCount(data.page);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -96,7 +117,35 @@ const Home = () => {
             title={myState.heroImage.original_title}
             text={myState.heroImage.overview}
           />
-          <SearchBar callback={searchItems} />
+
+          <Container className={classes.searchOptions}>
+            <SearchBar callback={searchItems} />
+
+            <div>
+              <IconButton aria-label="more" aria-controls="long-menu" aria-haspopup="true" onClick={handleClick}>
+                <MoreVertIcon />
+              </IconButton>
+              <Menu
+                id="long-menu"
+                anchorEl={anchorEl}
+                keepMounted
+                open={open}
+                onClose={handleClose}
+                PaperProps={{
+                  style: {
+                    maxHeight: ITEM_HEIGHT * 4.5,
+                    width: "20ch",
+                  },
+                }}
+              >
+                {options.map((option) => (
+                  <MenuItem key={option} selected={option === "Pyxis"} onClick={handleClose}>
+                    {option}
+                  </MenuItem>
+                ))}
+              </Menu>
+            </div>
+          </Container>
         </>
       ) : null}
       <Container>
@@ -120,9 +169,8 @@ const Home = () => {
         })}
 
         {myState.loading ? <Spinner /> : null}
-        {myState.currentPage <= myState.totalPages && !myState.loading ? (
-          <LoadMoreBtn text="Load More" onClick={loadMoreItems} />
-        ) : null}
+
+        <div ref={ref}></div>
       </Container>
     </>
   );
@@ -139,7 +187,12 @@ const useStyles = makeStyles(() =>
       flexWrap: "wrap",
     },
     title: {
-      marginBottom: 30,
+      marginBottom: 55,
+    },
+
+    searchOptions: {
+      display: "flex",
+      alignItems: "center",
     },
   })
 );

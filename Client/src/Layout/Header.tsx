@@ -11,7 +11,7 @@ import {
   Container,
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import VideoLibraryIcon from "@material-ui/icons/VideoLibrary";
+import QueueIcon from "@material-ui/icons/Queue";
 
 import { Link } from "react-router-dom";
 
@@ -48,7 +48,7 @@ const Header = () => {
 
             <IconButton aria-label="show 17 new notifications" color="inherit">
               <Badge badgeContent={17} style={{ color: "red", zIndex: 5 }}>
-                <VideoLibraryIcon style={{ color: "white", zIndex: 10 }} />
+                <QueueIcon style={{ color: "white", zIndex: 10 }} />
               </Badge>
             </IconButton>
           </Toolbar>
