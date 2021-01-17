@@ -3,7 +3,7 @@ const useShareContent = async () => {
     if (navigator.share) {
       await navigator.share({
         title: "hello",
-        url: "hhtp://chillmovie.netlify.app",
+        url: "https://chillmovie.netlify.app",
         text: "test",
       });
     }
