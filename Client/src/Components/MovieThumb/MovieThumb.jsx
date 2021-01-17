@@ -14,6 +14,8 @@ import {
   Button,
 } from "@material-ui/core";
 
+import useShareContent from "../../hooks/useShareContent";
+
 const MovieThumb = ({ movieId, clickable, movieName, image }) => {
   const classes = useStyles();
 
@@ -35,7 +37,7 @@ const MovieThumb = ({ movieId, clickable, movieName, image }) => {
             <Typography variant="h5">{movieName}</Typography>
           </CardContent>
           <CardActions className={classes.actions}>
-            <Button size="small" color="primary">
+            <Button size="small" color="primary" onClick={useShareContent}>
               Share
             </Button>
             <Button size="small" color="primary">
