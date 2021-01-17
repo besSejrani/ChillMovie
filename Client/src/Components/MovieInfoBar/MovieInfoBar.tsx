@@ -1,6 +1,6 @@
 import React from "react";
 
-import { createStyles, makeStyles, Theme, Icon } from "@material-ui/core";
+import { createStyles, makeStyles, Theme, Icon, Container } from "@material-ui/core";
 
 import { calcTime, convertMoney } from "../../utils/helpers";
 import Time from "@material-ui/icons/AccessTime";
@@ -12,7 +12,7 @@ const MovieInfoBar: React.FC<any> = ({ time, budget, revenue }) => {
 
   return (
     <div className={classes.infoBar}>
-      <div className={classes.infoBarContent}>
+      <Container className={classes.infoBarContent}>
         <div className={classes.infoBarContentColumn}>
           <Icon>
             <Time />
@@ -33,7 +33,7 @@ const MovieInfoBar: React.FC<any> = ({ time, budget, revenue }) => {
           </Icon>
           <span className={classes.infoBarInfo}>Revenue: {convertMoney(revenue)}</span>
         </div>
-      </div>
+      </Container>
     </div>
   );
 };
@@ -60,11 +60,6 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-
-      maxWidth: "1280px",
-      width: "100%",
-
-      margin: "0 auto",
       color: "#fff",
     },
     infoBarContentColumn: {

@@ -11,7 +11,6 @@ import {
   ListItemSecondaryAction,
   Switch,
   FormControl,
-  InputLabel,
   Select,
   MenuItem,
 } from "@material-ui/core";
@@ -105,9 +104,9 @@ const SideDrawer: React.FC<any> = () => {
               labelId="demo-simple-select-label"
               id="demo-simple-select" /* value={age} onChange={handleChange} */
             >
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={10}>English</MenuItem>
+              <MenuItem value={20}>Français</MenuItem>
+              <MenuItem value={30}>Deutsch</MenuItem>
             </Select>
           </FormControl>
         </ListItem>

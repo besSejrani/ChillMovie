@@ -1,80 +1,82 @@
 import React from "react";
 
 import { IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../config";
-import MovieThumb from "../MovieThumb/MovieThumb";
+import BreadCrumbs from "../BreadCrumbs/BreadCrumbs";
 
-import { Typography, Theme, createStyles, makeStyles, Container } from "@material-ui/core";
+import { Typography, Theme, createStyles, makeStyles, Container, CardMedia } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 
 const MovieInfo = ({ movie, directors }) => {
   const classes = useStyles();
 
   return (
-    <Container
+    <div
       className={classes.movieInfo}
       style={{
         background: movie.backdrop_path ? `url('${IMAGE_BASE_URL}${BACKDROP_SIZE}/${movie.backdrop_path}')` : "#000",
       }}
     >
-      <div className={classes.movieInfoContent}>
-        <div className={classes.movieInfoThumb}>
-          <MovieThumb
-            movieId={movie.id}
-            movieName={movie.title}
+      <Container>
+        <BreadCrumbs movie={movie.title} />
+        <div className={classes.movieInfoContent}>
+          <CardMedia
+            className={classes.media}
             image={movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : "./images/no-image.jpg"}
-            clickable={false}
+            title="Contemplative Reptile"
           />
-        </div>
 
-        <div className={classes.movieInfoText}>
-          <Typography variant="h1" className={classes.h1}>
-            {movie.title}
-          </Typography>
+          <div className={classes.movieInfoText}>
+            <Typography variant="h1" className={classes.h1}>
+              {movie.title}
+            </Typography>
 
-          <Typography variant="h3" className={classes.h3}>
-            PLOT
-          </Typography>
+            <Typography variant="h3" className={classes.h3}>
+              PLOT
+            </Typography>
 
-          <Typography variant="body1" className={classes.p}>
-            {movie.overview}
-          </Typography>
+            <Typography variant="body1" className={classes.p}>
+              {movie.overview}
+            </Typography>
 
-          <Typography variant="h3" className={classes.h3}>
-            IMDB RATING
-          </Typography>
+            <Typography variant="h3" className={classes.h3}>
+              IMDB RATING
+            </Typography>
 
-          <div className={classes.rating}>
-            <Rating
-              name="read-only"
-              defaultValue={movie.vote_average}
-              precision={0.1}
-              max={10}
-              readOnly
-              style={{ marginRight: "20px" }}
-            />
-            <p style={{ marginTop: "2px" }}>{movie.vote_average} / 10</p>
+            <div className={classes.rating}>
+              <Rating
+                name="read-only"
+                defaultValue={movie.vote_average}
+                precision={0.1}
+                max={10}
+                readOnly
+                style={{ marginRight: "20px" }}
+              />
+              <Typography variant="body1" style={{ marginTop: "2px" }}>
+                {movie.vote_average} / 10
+              </Typography>
+            </div>
+
+            {directors.length > 1 ? (
+              <Typography variant="h3" className={classes.h3}>
+                DIRECTORS
+              </Typography>
+            ) : (
+              <Typography variant="h3" className={classes.h3}>
+                DIRECTOR
+              </Typography>
+            )}
+
+            {directors.map((element, i) => {
+              return (
+                <Typography variant="body1" key={i}>
+                  {element.name}
+                </Typography>
+              );
+            })}
           </div>
-
-          {directors.length > 1 ? (
-            <Typography variant="h3" className={classes.h3}>
-              DIRECTORS
-            </Typography>
-          ) : (
-            <Typography variant="h3" className={classes.h3}>
-              DIRECTOR
-            </Typography>
-          )}
-
-          {directors.map((element, i) => {
-            return (
-              <p key={i} className="rmdb-director">
-                {element.name}
-              </p>
-            );
-          })}
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 };
 
@@ -87,39 +89,33 @@ const useStyles = makeStyles((theme: Theme) =>
     movieInfo: {
       backgroundSize: "cover !important",
       backgroundPosition: "center !important",
-      width: "100%",
-      height: "600px",
-      padding: "40px 20px",
-      boxSizing: "border-box",
+      height: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+    },
+    breadCrumbs: {
+      justifyContent: "flex-start",
     },
     movieInfoContent: {
-      maxWidth: "1280px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      backgroundColor: "rgba(0,0,0,0.7)",
+      padding: 0,
       width: "100%",
-      height: "100%",
-      margin: "0 auto",
-      background: "rgb(0, 0, 0, 0.7)",
-      position: "relative",
     },
-    movieInfoThumb: {
+    media: {
       width: "350px",
-      height: "100%",
-      overflow: "hidden",
-      position: "absolute",
-      left: "0px",
+      height: "500px",
     },
     movieInfoText: {
-      fontFamily: "Arial, Helvetica, sans-serif",
       height: "100%",
-      width: "auto",
-      padding: "40px",
+      width: "800px",
       color: "#fff",
-      overflow: "hidden",
-      boxSizing: "border-box",
-      position: "absolute",
-      left: "360px",
+      padding: "0px 50px 0px 50px",
     },
     h1: {
-      fontFamily: "Abel, sans-serif",
       fontSize: "44px",
       margin: "0",
     },
@@ -129,26 +125,11 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "30px 0px 20px 0px",
     },
     p: {
-      fontFamily: "Abel, sans-serif",
-      fontSize: "18px",
-      lineHeight: "26px",
+      fontSize: "16px",
+      lineHeight: "24px",
     },
     rating: {
       display: "flex",
-    },
-
-    meter: {
-      background: "linear-gradient(to bottom, #16d47b)",
-      "&::-webkit-meter-bar": {
-        background: "#fff",
-        width: "200px",
-      },
-      "&::-webkit-meter-optimum-value": {
-        background: "linear-gradient(to bottom, #fbb450)",
-      },
-      "&::-webkit-meter-even-less-good-value": {
-        background: "linear-gradient(to bottom, #ee5f5b)",
-      },
     },
   })
 );

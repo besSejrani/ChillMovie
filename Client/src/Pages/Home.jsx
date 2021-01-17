@@ -3,7 +3,7 @@ import { API_URL, API_KEY, IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "..
 
 import HeroImage from "../Components/HeroImage/HeroImage";
 import SearchBar from "../Components/SearchBar/index";
-import MovieThumb from "../Components/MovieThumb/MovieThumb";
+import MovieCard from "../Components/MovieCard/MovieCard";
 import Spinner from "../Components/Spinner/index";
 
 import axios from "axios";
@@ -156,7 +156,7 @@ const Home = () => {
       <Container className={classes.root}>
         {myState.movies.map((element, i) => {
           return (
-            <MovieThumb
+            <MovieCard
               key={i}
               clickable={true}
               image={
