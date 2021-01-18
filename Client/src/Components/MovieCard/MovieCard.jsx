@@ -78,12 +78,15 @@ export default MovieThumb;
 
 // ========================================================================================================
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       width: 390,
       marginRight: "20px",
       marginBottom: "20px",
+      [theme.breakpoints.down("sm")]: {
+        marginRight: "0px",
+      },
     },
     title: {
       height: 40,
