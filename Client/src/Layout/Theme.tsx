@@ -12,7 +12,7 @@ const Theme: React.FC<any> = (props) => {
         main: grey[900],
       },
       secondary: {
-        main: grey[900],
+        main: "#fff",
       },
       type: isDarkTheme ? "dark" : "light",
     },

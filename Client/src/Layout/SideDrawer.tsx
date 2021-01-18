@@ -25,6 +25,8 @@ import GithubIcon from "@material-ui/icons/GitHub";
 import WebIcon from "@material-ui/icons/Public";
 //import InstallIcon from "@material-ui/icons/GetApp";
 import TranslateIcon from "@material-ui/icons/Translate";
+import SearchIcon from "@material-ui/icons/Search";
+import QueueIcon from "@material-ui/icons/Queue";
 
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSideDrawer, toggleTheme } from "../redux/ui/uiAction";
@@ -54,18 +56,18 @@ const SideDrawer: React.FC<any> = () => {
             <ListItemText primary="Home" />
           </ListItem>
 
-          <ListItem button component={"a"} href="https://github.com/besSejrani">
+          <ListItem button component={Link} to="/search">
             <ListItemIcon>
-              <GithubIcon />
+              <SearchIcon />
             </ListItemIcon>
-            <ListItemText primary="Github" />
+            <ListItemText primary="Search" />
           </ListItem>
 
-          <ListItem button component={"a"} href="https://www.themoviedb.org/">
+          <ListItem button component={Link} to="/watchlist">
             <ListItemIcon>
-              <WebIcon />
+              <QueueIcon />
             </ListItemIcon>
-            <ListItemText primary="Tmdb" />
+            <ListItemText primary="Watch List" />
           </ListItem>
         </List>
       }
@@ -116,7 +118,23 @@ const SideDrawer: React.FC<any> = () => {
           </FormControl>
         </ListItem>
       </List>
+      <Divider />
 
+      <List subheader={<ListSubheader>Resources</ListSubheader>}>
+        <ListItem button component={"a"} href="https://github.com/besSejrani">
+          <ListItemIcon>
+            <GithubIcon />
+          </ListItemIcon>
+          <ListItemText primary="Github" />
+        </ListItem>
+
+        <ListItem button component={"a"} href="https://www.themoviedb.org/">
+          <ListItemIcon>
+            <WebIcon />
+          </ListItemIcon>
+          <ListItemText primary="Tmdb" />
+        </ListItem>
+      </List>
       <Divider />
     </div>
   );

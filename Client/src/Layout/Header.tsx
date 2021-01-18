@@ -47,7 +47,7 @@ const Header = () => {
             </Typography>
 
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} style={{ color: "red", zIndex: 5 }}>
+              <Badge component={Link} to="/watchlist" badgeContent={17} style={{ color: "red", zIndex: 5 }}>
                 <QueueIcon style={{ color: "white", zIndex: 10 }} />
               </Badge>
             </IconButton>

@@ -71,7 +71,6 @@ const Movie = () => {
         </Container>
       ) : null}
 
-      {!actors && !loading ? <h1>No movie Found</h1> : null}
       {loading ? <Spinner /> : null}
     </div>
   );
