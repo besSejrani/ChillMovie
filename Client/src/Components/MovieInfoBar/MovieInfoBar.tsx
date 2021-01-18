@@ -1,6 +1,6 @@
 import React from "react";
 
-import { createStyles, makeStyles, Theme, Icon, Container } from "@material-ui/core";
+import { createStyles, makeStyles, Theme, Icon, Container, Typography } from "@material-ui/core";
 
 import { calcTime, convertMoney } from "../../utils/helpers";
 import Time from "@material-ui/icons/AccessTime";
@@ -17,21 +17,27 @@ const MovieInfoBar: React.FC<any> = ({ time, budget, revenue }) => {
           <Icon>
             <Time />
           </Icon>
-          <span className={classes.infoBarInfo}>Running time: {calcTime(time)}</span>
+          <Typography variant="body1" className={classes.infoBarInfo}>
+            Running time: {calcTime(time)}
+          </Typography>
         </div>
 
         <div className={classes.infoBarContentColumn}>
           <Icon>
             <Money />
           </Icon>
-          <span className={classes.infoBarInfo}>Budget: {convertMoney(budget)}</span>
+          <Typography variant="body1" className={classes.infoBarInfo}>
+            Budget: {convertMoney(budget)}
+          </Typography>
         </div>
 
         <div className={classes.infoBarContentColumn}>
           <Icon>
             <Offer />
           </Icon>
-          <span className={classes.infoBarInfo}>Revenue: {convertMoney(revenue)}</span>
+          <Typography variant="body1" className={classes.infoBarInfo}>
+            Revenue: {convertMoney(revenue)}
+          </Typography>
         </div>
       </Container>
     </div>
@@ -52,21 +58,26 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: "space-between",
       alignItems: "center",
 
-      boxSizing: "border-box",
-      fontFamily: "Abel, sans-serif",
-      fontSize: "20px",
+      [theme.breakpoints.down("sm")]: {
+        height: "130px",
+      },
     },
     infoBarContent: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
       color: "#fff",
+
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        height: "100%",
+        padding: "20px 20px",
+      },
     },
     infoBarContentColumn: {
       display: "flex",
       alignItems: "center",
-
-      boxSizing: "border-box",
     },
     infoBarInfo: {
       padding: "0px 0px 0px 10px",

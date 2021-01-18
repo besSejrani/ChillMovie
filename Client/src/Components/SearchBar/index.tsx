@@ -48,6 +48,10 @@ const useStyles = makeStyles((theme: Theme) =>
       margin: "50px 0px",
       paddingLeft: 0,
       paddingRight: 0,
+
+      [theme.breakpoints.down("sm")]: {
+        margin: "30px 0px",
+      },
     },
   })
 );

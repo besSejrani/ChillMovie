@@ -66,6 +66,9 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
       height: "64px",
       position: "relative",
+      [theme.breakpoints.down("sm")]: {
+        height: "55px",
+      },
     },
     menuButton: {
       marginRight: theme.spacing(2),

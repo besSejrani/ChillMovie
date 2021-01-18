@@ -41,10 +41,9 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundSize: "100%, cover !important",
       backgroundPosition: "center, center !important",
       width: "100%",
-      height: "38vh",
+      height: "calc(100vh - 60px)",
       position: "relative",
       animation: "animateHeroimage 1s",
-      paddingTop: "500px",
     },
     heroImageText: {
       zIndex: 100,

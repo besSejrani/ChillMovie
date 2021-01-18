@@ -180,7 +180,7 @@ export default Home;
 
 // ========================================================================================================
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       display: "flex",
@@ -188,6 +188,10 @@ const useStyles = makeStyles(() =>
     },
     title: {
       marginBottom: 55,
+      [theme.breakpoints.down("sm")]: {
+        marginBottom: 20,
+        fontSize: "1.75rem",
+      },
     },
 
     searchOptions: {

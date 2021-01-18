@@ -81,7 +81,7 @@ export default Movie;
 
 // ========================================================================================================
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       display: "flex",
@@ -90,6 +90,10 @@ const useStyles = makeStyles(() =>
 
     actors: {
       margin: "30px 0px",
+      [theme.breakpoints.down("sm")]: {
+        marginBottom: 20,
+        fontSize: "1.75rem",
+      },
     },
   })
 );

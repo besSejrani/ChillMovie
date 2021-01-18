@@ -3,7 +3,7 @@ import React from "react";
 import { IMAGE_BASE_URL, POSTER_SIZE, BACKDROP_SIZE } from "../../config";
 import BreadCrumbs from "../BreadCrumbs/BreadCrumbs";
 
-import { Typography, Theme, createStyles, makeStyles, Container, CardMedia } from "@material-ui/core";
+import { Typography, Theme, createStyles, makeStyles, Container, CardMedia, Hidden } from "@material-ui/core";
 import { Rating } from "@material-ui/lab";
 
 const MovieInfo = ({ movie, directors }) => {
@@ -17,13 +17,19 @@ const MovieInfo = ({ movie, directors }) => {
       }}
     >
       <Container>
-        <BreadCrumbs movie={movie.title} />
+        <Hidden only="xs">
+          <BreadCrumbs movie={movie.title} />
+        </Hidden>
         <div className={classes.movieInfoContent}>
-          <CardMedia
-            className={classes.media}
-            image={movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : "./images/no-image.jpg"}
-            title="Contemplative Reptile"
-          />
+          <Hidden only="xs">
+            <CardMedia
+              className={classes.media}
+              image={
+                movie.poster_path ? `${IMAGE_BASE_URL}${POSTER_SIZE}${movie.poster_path}` : "./images/no-image.jpg"
+              }
+              title="Contemplative Reptile"
+            />
+          </Hidden>
 
           <div className={classes.movieInfoText}>
             <Typography variant="h1" className={classes.h1}>
@@ -89,10 +95,13 @@ const useStyles = makeStyles((theme: Theme) =>
     movieInfo: {
       backgroundSize: "cover !important",
       backgroundPosition: "center !important",
-      height: "100vh",
+      height: "calc(100vh - 60px)",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
+      [theme.breakpoints.down("sm")]: {
+        height: "calc(100vh - 50px)",
+      },
     },
     breadCrumbs: {
       justifyContent: "flex-start",
@@ -104,6 +113,10 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "rgba(0,0,0,0.7)",
       padding: 0,
       width: "100%",
+      [theme.breakpoints.down("sm")]: {
+        height: 450,
+        overflow: "scroll",
+      },
     },
     media: {
       width: "350px",
@@ -114,15 +127,27 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "800px",
       color: "#fff",
       padding: "0px 50px 0px 50px",
+      [theme.breakpoints.down("sm")]: {
+        width: "250px",
+        padding: "20px 20px",
+      },
     },
     h1: {
       fontSize: "44px",
       margin: "0",
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "30px",
+        margin: "20px 0px 0px 0px",
+      },
     },
     h3: {
       fontSize: "20px",
       lineHeight: "0",
       margin: "30px 0px 20px 0px",
+
+      [theme.breakpoints.down("sm")]: {
+        margin: "30px 0px 20px 0px",
+      },
     },
     p: {
       fontSize: "16px",
@@ -130,6 +155,9 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     rating: {
       display: "flex",
+      [theme.breakpoints.down("sm")]: {
+        flexDirection: "column",
+      },
     },
   })
 );
