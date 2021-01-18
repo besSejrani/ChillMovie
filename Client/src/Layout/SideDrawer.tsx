@@ -13,6 +13,7 @@ import {
   FormControl,
   Select,
   MenuItem,
+  CardMedia,
 } from "@material-ui/core";
 
 import { Link } from "react-router-dom";
@@ -28,6 +29,8 @@ import TranslateIcon from "@material-ui/icons/Translate";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleSideDrawer, toggleTheme } from "../redux/ui/uiAction";
 import { IAppState } from "../redux/rootReducer";
+
+import imdb from "../assets/logo.png";
 
 type Anchor = "left";
 
@@ -113,6 +116,7 @@ const SideDrawer: React.FC<any> = () => {
       </List>
 
       <Divider />
+      <CardMedia className={classes.imdb} image={imdb} title="Contemplative Reptile" />
     </div>
   );
 
@@ -133,10 +137,15 @@ export default SideDrawer;
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: 250,
+    width: 260,
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 150,
+  },
+  imdb: {
+    height: "80px",
+    width: "200px",
+    margin: "20px auto",
   },
 }));
