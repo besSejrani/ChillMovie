@@ -30,7 +30,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleSideDrawer, toggleTheme } from "../redux/ui/uiAction";
 import { IAppState } from "../redux/rootReducer";
 
-import imdb from "../assets/logo.png";
+import imdb from "../assets/logo.svg";
 
 type Anchor = "left";
 
@@ -43,8 +43,10 @@ const SideDrawer: React.FC<any> = () => {
 
   const list = (anchor: Anchor) => (
     <div className={classes.list}>
+      <CardMedia component={Link} to="/" className={classes.imdb} image={imdb} title="Contemplative Reptile" />
+      <Divider />
       {
-        <List>
+        <List subheader={<ListSubheader>Links</ListSubheader>}>
           <ListItem button component={Link} to="/">
             <ListItemIcon>
               <HomeIcon />
@@ -59,11 +61,11 @@ const SideDrawer: React.FC<any> = () => {
             <ListItemText primary="Github" />
           </ListItem>
 
-          <ListItem button component={"a"} href="https://www.imdb.com/">
+          <ListItem button component={"a"} href="https://www.themoviedb.org/">
             <ListItemIcon>
               <WebIcon />
             </ListItemIcon>
-            <ListItemText primary="Imdb" />
+            <ListItemText primary="Tmdb" />
           </ListItem>
         </List>
       }
@@ -116,7 +118,6 @@ const SideDrawer: React.FC<any> = () => {
       </List>
 
       <Divider />
-      <CardMedia className={classes.imdb} image={imdb} title="Contemplative Reptile" />
     </div>
   );
 
@@ -137,15 +138,15 @@ export default SideDrawer;
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: 260,
+    width: 250,
   },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 150,
   },
   imdb: {
-    height: "80px",
-    width: "200px",
-    margin: "20px auto",
+    height: "53px",
+    width: "50%",
+    margin: "30px 20px",
   },
 }));
