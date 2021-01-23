@@ -30,9 +30,10 @@ const MovieThumb = ({ movieId, clickable, movieName, image }) => {
           url: "https://chillmovie.netlify.app",
           text: "test",
         });
+      } else {
+        await dispatch(shareMovie({ id: movieId, movie: movieName }));
+        await dispatch(openShareDialog());
       }
-      await dispatch(shareMovie({ id: movieId, movie: movieName }));
-      await dispatch(openShareDialog());
     } catch (error) {
       console.log(error);
     }
