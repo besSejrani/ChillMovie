@@ -1,16 +1,44 @@
-import * as uiTypes from "./uiTypes";
+import { UiType } from "./uiTypes";
 
-const initialState = { isSideDrawerOpen: false, isDarkTheme: false };
+interface UiState {
+  isSideDrawerOpen: boolean;
+  isDarkTheme: boolean;
+  isShareDialogOpen: boolean;
+  closeShareDialog: string;
+  shareMovie: object;
+}
 
-export default (state = initialState, actions: any) => {
-  const { type, payload } = actions;
+const initialState = {
+  isSideDrawerOpen: false,
+  isDarkTheme: false,
+  isShareDialogOpen: false,
+  closeShareDialog: "",
+  shareMovie: {
+    id: "",
+    name: "",
+  },
+};
+
+interface Action {
+  type: string;
+  payload?: any;
+}
+
+export default (state: UiState = initialState, action: Action): UiState => {
+  const { type, payload } = action;
 
   switch (type) {
-    case uiTypes.TOGGLE_SIDE_DRAWER:
+    case UiType.TOGGLE_SIDE_DRAWER:
       return { ...state, isSideDrawerOpen: !state.isSideDrawerOpen };
 
-    case uiTypes.TOGGLE_THEME:
+    case UiType.TOGGLE_THEME:
       return { ...state, isDarkTheme: !state.isDarkTheme };
+
+    case UiType.TOGGLE_SHARE_DIALOG:
+      return { ...state, isShareDialogOpen: !state.isShareDialogOpen };
+
+    case UiType.SHARE_MOVIE:
+      return { ...state, shareMovie: { ...payload } };
 
     default:
       return state;
