@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Drawer,
@@ -23,7 +23,7 @@ import DarkMode from "@material-ui/icons/BrightnessHigh";
 import HomeIcon from "@material-ui/icons/Home";
 import GithubIcon from "@material-ui/icons/GitHub";
 import WebIcon from "@material-ui/icons/Public";
-//import InstallIcon from "@material-ui/icons/GetApp";
+import InstallIcon from "@material-ui/icons/GetApp";
 import TranslateIcon from "@material-ui/icons/Translate";
 import SearchIcon from "@material-ui/icons/Search";
 import QueueIcon from "@material-ui/icons/Queue";
@@ -38,10 +38,41 @@ type Anchor = "left";
 
 const SideDrawer: React.FC<any> = () => {
   const classes = useStyles();
+  const [installable, setInstallable] = useState(false);
+
+  let defferedPrompt: any = useRef(null);
   const dispatch = useDispatch();
 
   const isDarkTheme = useSelector((state: IAppState) => state.ui.isDarkTheme);
   const isSideDrawerOpen = useSelector((state: IAppState) => state.ui.isSideDrawerOpen);
+
+  useEffect(() => {
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      defferedPrompt.current = event;
+      setInstallable(true);
+    });
+
+    window.addEventListener("appinstalled", () => {
+      console.log("INSTALL: Success");
+    });
+  }, [installable]);
+
+  const handleInstallClick = () => {
+    if (defferedPrompt) {
+      defferedPrompt.current.prompt();
+
+      defferedPrompt.current.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === "dismissed") {
+          console.log("user cancelled installation");
+        } else {
+          console.log("user added to homescreen");
+          defferedPrompt.current = null;
+          setInstallable(false);
+        }
+      });
+    }
+  };
 
   const list = (anchor: Anchor) => (
     <div className={classes.list}>
@@ -88,7 +119,7 @@ const SideDrawer: React.FC<any> = () => {
           </ListItemSecondaryAction>
         </ListItem>
 
-        {/*         {installable && (
+        {installable && (
           <ListItem>
             <ListItemIcon>
               <InstallIcon />
@@ -102,7 +133,7 @@ const SideDrawer: React.FC<any> = () => {
               />
             </ListItemSecondaryAction>
           </ListItem>
-        )} */}
+        )}
 
         <ListItem>
           <ListItemIcon>{<TranslateIcon />}</ListItemIcon>
