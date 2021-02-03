@@ -163,7 +163,7 @@ const SideDrawer: React.FC<any> = () => {
           <ListItemIcon>
             <WebIcon />
           </ListItemIcon>
-          <ListItemText primary="Tmdb" />
+          <ListItemText primary="TMDB" />
         </ListItem>
       </List>
       <Divider />

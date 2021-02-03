@@ -1,6 +1,6 @@
 import React from "react";
 
-function WatchList() {
+const WatchList = () => {
   return (
     <div>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laboriosam numquam impedit culpa! Asperiores,
@@ -13,6 +13,6 @@ function WatchList() {
       possimus dolore corrupti quaerat provident accusamus, nobis atque optio enim. Ab fugit reprehenderit mollitia
     </div>
   );
-}
+};
 
 export default WatchList;

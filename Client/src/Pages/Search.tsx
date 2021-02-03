@@ -1,6 +1,6 @@
 import React from "react";
 
-function Search() {
+const Search = () => {
   return (
     <div>
       Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laboriosam numquam impedit culpa! Asperiores,
@@ -25,6 +25,6 @@ function Search() {
       eligendi, libero aliquid cum et? Recusandae perspiciatis possimus atque eos, esse cupiditate dolor temporibus?
     </div>
   );
-}
+};
 
 export default Search;
